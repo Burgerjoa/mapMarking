@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-
 void main() {
   runApp(const MainPage());
 }
@@ -58,6 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: PageView(
+        physics: NeverScrollableScrollPhysics(),
         controller: _pageController,
         onPageChanged: (index) {
           setState(() {
@@ -115,24 +115,23 @@ class _MyHomePageState extends State<MyHomePage> {
         selectedItemColor: Colors.greenAccent,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
+        onPressed: () {
           showDialog(
               context: context,
-              builder: (context){
+              builder: (context) {
                 return AlertDialog(
                   title: Text("내 위치"),
                   content: Text("현재 위치"),
                   actions: [
                     TextButton(
-                      onPressed: (){
+                      onPressed: () {
                         Navigator.pop(context);
                       },
                       child: Text("닫기"),
                     )
                   ],
                 );
-              }
-          );
+              });
         },
         child: Icon(Icons.my_location),
       ),
@@ -188,22 +187,20 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("홈 화면"),
       ),
-      body:GoogleMap(
-  initialCameraPosition: CameraPosition(
-    target: LatLng(37.7749, -122.4194), // 초기 위치 설정
-    zoom: 12, // 초기 줌 레벨 설정
-  ),
-  markers: Set.from([
-    Marker(
-      markerId: MarkerId('marker_id'), // 마커 식별자
-      position: LatLng(37.7749, -122.4194), // 마커 위치 설정
-      infoWindow: InfoWindow(title: 'San Francisco'), // 정보 창 설정
-    ),
-  ]),
-  zoomControlsEnabled: false, // 줌 컨트롤 활성화 여부
-  // 나머지 GoogleMap 속성들...
-
-
+      body: GoogleMap(
+        initialCameraPosition: CameraPosition(
+          target: LatLng(37.7749, -122.4194), // 초기 위치 설정
+          zoom: 12, // 초기 줌 레벨 설정
+        ),
+        markers: Set.from([
+          Marker(
+            markerId: MarkerId('marker_id'), // 마커 식별자
+            position: LatLng(37.7749, -122.4194), // 마커 위치 설정
+            infoWindow: InfoWindow(title: 'San Francisco'), // 정보 창 설정
+          ),
+        ]),
+        zoomControlsEnabled: false, // 줌 컨트롤 활성화 여부
+        // 나머지 GoogleMap 속성들...
       ),
     );
   }

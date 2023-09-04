@@ -13,8 +13,8 @@
 13         to allow setting breakpoints, to provide hot reload, etc.
 14    -->
 15    <uses-permission android:name="android.permission.INTERNET" />
-15-->C:\Users\sw020\Desktop\Flutter_Login\android\app\src\debug\AndroidManifest.xml:6:5-66
-15-->C:\Users\sw020\Desktop\Flutter_Login\android\app\src\debug\AndroidManifest.xml:6:22-64
+15-->C:\Users\sw020\Desktop\mapMarking\android\app\src\debug\AndroidManifest.xml:6:5-66
+15-->C:\Users\sw020\Desktop\mapMarking\android\app\src\debug\AndroidManifest.xml:6:22-64
 16    <!-- Include required permissions for Google Maps API to run. -->
 17    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 17-->[com.google.android.gms:play-services-maps:18.1.0] C:\Users\sw020\.gradle\caches\transforms-3\d7f7973f000d5c8945a05a4db1417b66\transformed\jetified-play-services-maps-18.1.0\AndroidManifest.xml:23:5-79
