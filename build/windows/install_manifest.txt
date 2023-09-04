@@ -1,0 +1,12 @@
+C:/Users/sw020/Desktop/Flutter_Login/build/windows/runner/Debug/data/icudtl.dat
+C:/Users/sw020/Desktop/Flutter_Login/build/windows/runner/Debug/flutter_windows.dll
+C:/Users/sw020/Desktop/Flutter_Login/build/windows/runner/Debug/data/flutter_assets/AssetManifest.bin
+C:/Users/sw020/Desktop/Flutter_Login/build/windows/runner/Debug/data/flutter_assets/AssetManifest.json
+C:/Users/sw020/Desktop/Flutter_Login/build/windows/runner/Debug/data/flutter_assets/assets/logo.svg
+C:/Users/sw020/Desktop/Flutter_Login/build/windows/runner/Debug/data/flutter_assets/FontManifest.json
+C:/Users/sw020/Desktop/Flutter_Login/build/windows/runner/Debug/data/flutter_assets/fonts/MaterialIcons-Regular.otf
+C:/Users/sw020/Desktop/Flutter_Login/build/windows/runner/Debug/data/flutter_assets/kernel_blob.bin
+C:/Users/sw020/Desktop/Flutter_Login/build/windows/runner/Debug/data/flutter_assets/NOTICES
+C:/Users/sw020/Desktop/Flutter_Login/build/windows/runner/Debug/data/flutter_assets/NOTICES.Z
+C:/Users/sw020/Desktop/Flutter_Login/build/windows/runner/Debug/data/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
+C:/Users/sw020/Desktop/Flutter_Login/build/windows/runner/Debug/data/flutter_assets/shaders/ink_sparkle.frag
