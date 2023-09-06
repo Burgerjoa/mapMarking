@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/size.dart';
-import 'package:validators/validators.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String text;
