@@ -32,6 +32,20 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final PageController _pageController = PageController();
   int _currentIndex = 0;
+  late GoogleMapController _controller; // GoogleMapController를 추가하세요
+
+  @override
+  void initState() {
+    super.initState();
+    // 초기화
+    _controller = GoogleMapController(
+      // GoogleMapController를 초기화합니다
+      options: GoogleMapOptions(
+        zoom: 12,
+        myLocationEnabled: true,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
           });
         },
         children: [
-          HomeScreen(),
+          HomeScreen(controller: _controller),
           PublicTransportScreen(),
           NavigationScreen(),
           NearbyScreen(),
@@ -116,25 +130,20 @@ class _MyHomePageState extends State<MyHomePage> {
         selectedItemColor: Colors.greenAccent,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: Text("내 위치"),
-                  content: Text("현재 위치"),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text("닫기"),
-                    )
-                  ],
-                );
-              });
+        onPressed: () async {
+          // 현재 위치를 가져오는 `getCurrentLocation` 함수를 사용하여 위치 정보를 얻습니다
+          var gps = await getCurrentLocation();
+
+          // Google Maps에서 새 위치로 카메라를 이동시킵니다
+          _controller.animateCamera(
+            CameraUpdate.newLatLng(LatLng(gps.latitude, gps.longitude)),
+          );
         },
-        child: Icon(Icons.my_location),
+        child: Icon(
+          Icons.my_location,
+          color: Colors.black,
+        ),
+        backgroundColor: Colors.white,
       ),
     );
   }
@@ -180,8 +189,19 @@ class CustomSearchDelegate extends SearchDelegate {
   }
 }
 
+// 현재 위치
+Future<Position> getCurrentLocation() async {
+  Position position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high);
+  return position;
+}
+
 // 홈 화면
 class HomeScreen extends StatelessWidget {
+  final GoogleMapController controller;
+
+  HomeScreen({required this.controller});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -189,20 +209,21 @@ class HomeScreen extends StatelessWidget {
         title: Text("홈 화면"),
       ),
       body: GoogleMap(
-        initialCameraPosition: CameraPosition(
-          target: LatLng(37.7749, -122.4194), // 초기 위치 설정
-          zoom: 12, // 초기 줌 레벨 설정
-        ),
-        markers: Set.from([
-          Marker(
-            markerId: MarkerId('marker_id'), // 마커 식별자
-            position: LatLng(37.7749, -122.4194), // 마커 위치 설정
-            infoWindow: InfoWindow(title: 'San Francisco'), // 정보 창 설정
+          initialCameraPosition: CameraPosition(
+            target: LatLng(37.7749, -122.4194), // 초기 위치 설정
+            zoom: 12, // 초기 줌 레벨 설정
           ),
-        ]),
-        zoomControlsEnabled: false, // 줌 컨트롤 활성화 여부
-        // 나머지 GoogleMap 속성들...
-      ),
+          markers: Set.from([
+            Marker(
+              markerId: MarkerId('marker_id'), // 마커 식별자
+              position: LatLng(37.7749, -122.4194), // 마커 위치 설정
+              infoWindow: InfoWindow(title: 'San Francisco'), // 정보 창 설정
+            ),
+          ]),
+          zoomControlsEnabled: false, // 줌 컨트롤 활성화 여부
+          myLocationButtonEnabled: true
+          // 나머지 GoogleMap 속성들...
+          ),
     );
   }
 }
