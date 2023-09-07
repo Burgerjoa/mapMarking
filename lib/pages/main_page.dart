@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'dart:convert';
+import 'dart:io';
 import 'package:csv/csv.dart';
+import 'csv.dart';
 
 void main() {
   runApp(const MainPage());
@@ -40,25 +42,84 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "MILESTONE beta",
-          style: TextStyle(color: Colors.black),
+        title: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: "MILESTONE ",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: "YourNormalFont", // 일반 글꼴 이름으로 변경해야 합니다.
+                ),
+              ),
+              TextSpan(
+                text: "beta",
+                style: TextStyle(
+                  color: Colors.yellow,
+                  fontFamily: "YourHandwritingFont", // 필기체 글꼴 이름으로 변경해야 합니다.
+                ),
+              ),
+            ],
+          ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.greenAccent,
+        backgroundColor: Colors.indigo,
         elevation: 10,
+        // leading: IconButton(
+        //   icon: Icon(Icons.settings), // 설정 아이콘
+        //   onPressed: () {
+        //     // 설정 버튼을 눌렀을 때 이동할 화면을 여기에 추가
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(builder: (context) => SettingScreen()),
+        //     );
+        //   },
+        // ),
         actions: [
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
-              // 검색 버튼을 누르면 검색 기능을 추가할 수 있습니다.
-              // 여기에 검색 기능을 구현하세요.
-              // 예를 들면 showDialog 등을 사용하여 검색창을 띄울 수 있습니다.
-              // widget.searchController.text 에 검색어가 들어있을 것입니다.
               showSearch(context: context, delegate: CustomSearchDelegate());
             },
           ),
         ],
+      ),
+      drawer: Drawer(
+        // endDrawer를 사용하여 측면에서 설정 창 표시
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text('Home'),
+              onTap: () {
+                // 설정 1을 선택했을 때의 동작을 추가하세요.
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.bookmark),
+              title: Text("My"),
+              onTap: () {
+                // 설정 2를 선택했을 때의 동작을 추가하세요.
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text("Settings"),
+              onTap: () {
+                // 설정 2를 선택했을 때의 동작을 추가하세요.
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.person),
+              title: Text("Log Out"),
+              onTap: () {
+                // 설정 2를 선택했을 때의 동작을 추가하세요.
+              },
+            ),
+            // 추가적인 설정 항목을 여기에 추가하세요.
+          ],
+        ),
       ),
       body: PageView(
         physics: NeverScrollableScrollPhysics(),
@@ -70,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         children: [
           map_widget(),
-          SettingScreen(),
+          // SettingScreen(),
           // PublicTransportScreen(),
           // NavigationScreen(),
           // NearbyScreen(),
@@ -78,31 +139,31 @@ class _MyHomePageState extends State<MyHomePage> {
           // MyLogScreen(),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-            _pageController.animateToPage(
-              index,
-              duration: Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
-            );
-          });
-        },
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "홈",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: "설정",
-          ),
-        ],
-        selectedItemColor: Colors.greenAccent,
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   type: BottomNavigationBarType.fixed,
+      //   currentIndex: _currentIndex,
+      //   onTap: (index) {
+      //     setState(() {
+      //       _currentIndex = index;
+      //       _pageController.animateToPage(
+      //         index,
+      //         duration: Duration(milliseconds: 300),
+      //         curve: Curves.easeInOut,
+      //       );
+      //     });
+      //   },
+      //   items: const <BottomNavigationBarItem>[
+      //     // BottomNavigationBarItem(
+      //     //   icon: Icon(Icons.home),
+      //     //   label: "홈",
+      //     // ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.settings),
+      //       label: "설정",
+      //     ),
+      //   ],
+      //   selectedItemColor: Colors.greenAccent,
+      // ),
       // floatingActionButton: FloatingActionButton(
       //   onPressed: () {
       //     showDialog(
@@ -180,66 +241,29 @@ class _map_widgetState extends State<map_widget> {
   late GoogleMapController _controller;
   bool _myLocationEnabled = false;
 
-  List<Map<String, dynamic>> places = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _getCurrentLocation();
-    _loadCsvData();
-  }
-
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 
-  Future<void> _loadCsvData() async {
-    final String csvData =
-        await rootBundle.loadString('assets/서울특별시_강북구_보안등정보_20220907.csv');
-    final List<List<dynamic>> csvTable = CsvToListConverter().convert(csvData);
-
-    final List<String> headers =
-        csvTable[0].map((value) => value.toString()).toList();
-    final String latitudeColumnName = '위도'; // 'E' 열은 위도
-    final String longitudeColumnName = '경도'; // 'F' 열은 경도
-    final int latitudeIndex = headers.indexOf(latitudeColumnName);
-    final int longitudeIndex = headers.indexOf(longitudeColumnName);
-
-    for (var row in csvTable.skip(1)) {
-      if (row.length > latitudeIndex && row.length > longitudeIndex) {
-        final String latitudeStr = row[latitudeIndex].toString();
-        final String longitudeStr = row[longitudeIndex].toString();
-
-        final double? latitude = double.tryParse(latitudeStr);
-        final double? longitude = double.tryParse(longitudeStr);
-
-        if (latitude != null && longitude != null) {
-          setState(() {
-            places.add({
-              'latitude': latitude,
-              'longitude': longitude,
-            });
-          });
-        }
-      }
-    }
-  }
-
   Future<void> _getCurrentLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
 
+    // 위치 서비스가 활성화되어 있는지 확인
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
+      // 위치 서비스가 비활성화된 경우, 사용자에게 위치 서비스를 활성화하라는 메시지를 보여줄 수 있음
       return;
     }
 
+    // 위치 권한 요청
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
+        // 위치 권한이 거부된 경우, 사용자에게 위치 권한을 부여하라는 메시지를 보여줄 수 있음
         return;
       }
     }
@@ -256,6 +280,7 @@ class _map_widgetState extends State<map_widget> {
 
   @override
   Widget build(BuildContext context) {
+    places;
     return CupertinoPageScaffold(
       child: Stack(
         children: [
@@ -268,35 +293,42 @@ class _map_widgetState extends State<map_widget> {
             myLocationButtonEnabled: false,
             markers: Set<Marker>.of(places.map((place) {
               return Marker(
-                markerId:
-                    MarkerId(place.toString()), // MarkerId를 고유하게 만들어야 합니다.
+                markerId: MarkerId(place['name']),
                 position: LatLng(place['latitude'], place['longitude']),
-                infoWindow: InfoWindow(
-                    title: place.toString()), // InfoWindow에 적절한 정보를 표시해야 합니다.
+                infoWindow: InfoWindow(title: place['name']),
               );
             })),
-            onMapCreated: (controller) {
-              _controller = controller;
-            },
-            zoomControlsEnabled: true,
+            onMapCreated: (controller) => _controller = controller,
           ),
           Positioned(
             top: 16,
-            left: 16,
+            right: 16,
             child: FloatingActionButton(
               onPressed: _getCurrentLocation,
               foregroundColor: Colors.black,
               backgroundColor: Colors.white,
-              elevation: 8,
+              elevation: 8, // 그림자 크기
               child: Icon(Icons.my_location),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(10), // 버튼 모서리 둥글기
               ),
             ),
           ),
         ],
       ),
     );
+  }
+}
+
+Future<void> readCsvFile() async {
+  final input = File('assets/lamp.csv').openRead();
+  final fields = await input
+      .transform(utf8.decoder)
+      .transform(CsvToListConverter())
+      .toList();
+
+  while (true) {
+    print('Row: $fields');
   }
 }
 
@@ -322,43 +354,44 @@ class PublicTransportScreen extends StatelessWidget {
     );
   }
 }
-
-class SettingScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("설정"),
-      ),
-      body: ListView(
-        children: [
-          ListTile(
-            title: Text("내 정보"),
-            onTap: () {},
-          ),
-          Divider(), // 구분선을 추가하여 항목을 구분할 수 있습니다.
-          ListTile(
-            title: Text("알림 설정"),
-            onTap: () {},
-          ),
-          Divider(),
-          ListTile(
-            title: Text(
-              "로그아웃",
-              style: TextStyle(
-                color: Colors.red, // 텍스트 색상을 빨간색으로 설정
-              ),
-            ),
-            onTap: () {
-// 로그아웃 로직을 여기에 추가하세요.
-            },
-          )
-// 여기에 다른 설정 항목들을 추가할 수 있습니다.
-        ],
-      ),
-    );
-  }
-}
+// class SettingScreen extends StatelessWidget {
+// @override
+// Widget build(BuildContext context) {
+//   return Scaffold(
+//     appBar: AppBar(
+//       title: Text("설정"),
+//     ),
+//     body: ListView(
+//       children: [
+// ListTile(
+//   title: Text("내 정보"),
+// onTap: () {
+// },
+// ),
+// Divider(), // 구분선을 추가하여 항목을 구분할 수 있습니다.
+// ListTile(
+//   title: Text("알림 설정"),
+// onTap: () {
+// },
+// ),
+// Divider(),
+// ListTile(
+// title: Text(
+// "Log Out",
+// style: TextStyle(
+// color: Colors.red, // 텍스트 색상을 빨간색으로 설정
+// ),
+// ),
+// onTap: () {
+// // 로그아웃 로직을 여기에 추가하세요.
+// },
+// )
+// // 여기에 다른 설정 항목들을 추가할 수 있습니다.
+// ],
+// ),
+// );
+// }
+// }
 
 class NavigationScreen extends StatelessWidget {
   @override
