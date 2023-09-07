@@ -126,8 +126,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-
-
 class CustomSearchDelegate extends SearchDelegate {
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -273,7 +271,10 @@ class _map_widgetState extends State<map_widget> {
                 infoWindow: InfoWindow(title: place['name']),
               );
             })),
-            onMapCreated: (controller) => _controller = controller,
+            onMapCreated: (controller) {
+              _controller = controller; // _controller를 설정합니다.
+              // 여기에서 현재 카메라 위치를 업데이트하거나 다른 작업을 수행할 수 있습니다.
+            },
             zoomControlsEnabled: false,
           ),
           Positioned(
@@ -318,43 +319,42 @@ class PublicTransportScreen extends StatelessWidget {
     );
   }
 }
+
 class SettingScreen extends StatelessWidget {
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: Text("설정"),
-    ),
-    body: ListView(
-      children: [
-ListTile(
-  title: Text("내 정보"),
-onTap: () {
-},
-),
-Divider(), // 구분선을 추가하여 항목을 구분할 수 있습니다.
-ListTile(
-  title: Text("알림 설정"),
-onTap: () {
-},
-),
-Divider(),
-ListTile(
-title: Text(
-"로그아웃",
-style: TextStyle(
-color: Colors.red, // 텍스트 색상을 빨간색으로 설정
-),
-),
-onTap: () {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("설정"),
+      ),
+      body: ListView(
+        children: [
+          ListTile(
+            title: Text("내 정보"),
+            onTap: () {},
+          ),
+          Divider(), // 구분선을 추가하여 항목을 구분할 수 있습니다.
+          ListTile(
+            title: Text("알림 설정"),
+            onTap: () {},
+          ),
+          Divider(),
+          ListTile(
+            title: Text(
+              "로그아웃",
+              style: TextStyle(
+                color: Colors.red, // 텍스트 색상을 빨간색으로 설정
+              ),
+            ),
+            onTap: () {
 // 로그아웃 로직을 여기에 추가하세요.
-},
-)
+            },
+          )
 // 여기에 다른 설정 항목들을 추가할 수 있습니다.
-],
-),
-);
-}
+        ],
+      ),
+    );
+  }
 }
 
 class NavigationScreen extends StatelessWidget {
