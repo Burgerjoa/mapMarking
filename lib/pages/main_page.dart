@@ -68,6 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         children: [
           map_widget(),
+          SettingScreen(),
           // PublicTransportScreen(),
           // NavigationScreen(),
           // NearbyScreen(),
@@ -124,6 +125,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
 
 class CustomSearchDelegate extends SearchDelegate {
   @override
@@ -314,6 +317,44 @@ class PublicTransportScreen extends StatelessWidget {
       ),
     );
   }
+}
+class SettingScreen extends StatelessWidget {
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: Text("설정"),
+    ),
+    body: ListView(
+      children: [
+ListTile(
+  title: Text("내 정보"),
+onTap: () {
+},
+),
+Divider(), // 구분선을 추가하여 항목을 구분할 수 있습니다.
+ListTile(
+  title: Text("알림 설정"),
+onTap: () {
+},
+),
+Divider(),
+ListTile(
+title: Text(
+"로그아웃",
+style: TextStyle(
+color: Colors.red, // 텍스트 색상을 빨간색으로 설정
+),
+),
+onTap: () {
+// 로그아웃 로직을 여기에 추가하세요.
+},
+)
+// 여기에 다른 설정 항목들을 추가할 수 있습니다.
+],
+),
+);
+}
 }
 
 class NavigationScreen extends StatelessWidget {
