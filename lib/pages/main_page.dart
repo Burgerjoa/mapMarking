@@ -179,6 +179,12 @@ class _map_widgetState extends State<map_widget> {
   bool _myLocationEnabled = false;
 
   @override
+  void initState() {
+    super.initState();
+    _getCurrentLocation(); // initState에서 _getCurrentLocation를 호출하여 초기 실행합니다.
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -254,6 +260,7 @@ class _map_widgetState extends State<map_widget> {
         'longitude': 127.025112,
       },
     ];
+
     return CupertinoPageScaffold(
       child: Stack(
         children: [
