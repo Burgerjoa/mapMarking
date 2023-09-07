@@ -187,6 +187,25 @@ class _map_widgetState extends State<map_widget> {
   }
 
   Future<void> _getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // 위치 서비스가 활성화되어 있는지 확인
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // 위치 서비스가 비활성화된 경우, 사용자에게 위치 서비스를 활성화하라는 메시지를 보여줄 수 있음
+      return;
+    }
+
+    // 위치 권한 요청
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // 위치 권한이 거부된 경우, 사용자에게 위치 권한을 부여하라는 메시지를 보여줄 수 있음
+        return;
+      }
+    }
     final position = await Geolocator.getCurrentPosition();
     final cameraPosition = CameraPosition(
       target: LatLng(position.latitude, position.longitude),
