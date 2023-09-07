@@ -45,18 +45,44 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         backgroundColor: Colors.greenAccent,
         elevation: 10,
+        leading: IconButton(
+          icon: Icon(Icons.settings), // 설정 아이콘
+          onPressed: () {
+            // 설정 버튼을 눌렀을 때 이동할 화면을 여기에 추가
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SettingScreen()),
+            );
+          },
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
-              // 검색 버튼을 누르면 검색 기능을 추가할 수 있습니다.
-              // 여기에 검색 기능을 구현하세요.
-              // 예를 들면 showDialog 등을 사용하여 검색창을 띄울 수 있습니다.
-              // widget.searchController.text 에 검색어가 들어있을 것입니다.
               showSearch(context: context, delegate: CustomSearchDelegate());
             },
           ),
         ],
+      ),
+      endDrawer: Drawer( // endDrawer를 사용하여 측면에서 설정 창 표시
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            ListTile(
+              title: Text('설정 1'),
+              onTap: () {
+                // 설정 1을 선택했을 때의 동작을 추가하세요.
+              },
+            ),
+            ListTile(
+              title: Text('설정 2'),
+              onTap: () {
+                // 설정 2를 선택했을 때의 동작을 추가하세요.
+              },
+            ),
+            // 추가적인 설정 항목을 여기에 추가하세요.
+          ],
+        ),
       ),
       body: PageView(
         physics: NeverScrollableScrollPhysics(),
@@ -90,10 +116,10 @@ class _MyHomePageState extends State<MyHomePage> {
           });
         },
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "홈",
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.home),
+          //   label: "홈",
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: "설정",
@@ -125,6 +151,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
 
 class CustomSearchDelegate extends SearchDelegate {
   @override
@@ -177,12 +205,6 @@ class map_widget extends StatefulWidget {
 class _map_widgetState extends State<map_widget> {
   late GoogleMapController _controller;
   bool _myLocationEnabled = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _getCurrentLocation(); // initState에서 _getCurrentLocation를 호출하여 초기 실행합니다.
-  }
 
   @override
   void dispose() {
@@ -260,7 +282,6 @@ class _map_widgetState extends State<map_widget> {
         'longitude': 127.025112,
       },
     ];
-
     return CupertinoPageScaffold(
       child: Stack(
         children: [
@@ -278,14 +299,10 @@ class _map_widgetState extends State<map_widget> {
                 infoWindow: InfoWindow(title: place['name']),
               );
             })),
-            onMapCreated: (controller) {
-              _controller = controller; // _controller를 설정합니다.
-              // 여기에서 현재 카메라 위치를 업데이트하거나 다른 작업을 수행할 수 있습니다.
-            },
-            zoomControlsEnabled: false,
+            onMapCreated: (controller) => _controller = controller,
           ),
           Positioned(
-            bottom: 16,
+            top: 16,
             right: 16,
             child: FloatingActionButton(
               onPressed: _getCurrentLocation,
@@ -326,42 +343,43 @@ class PublicTransportScreen extends StatelessWidget {
     );
   }
 }
-
 class SettingScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("설정"),
-      ),
-      body: ListView(
-        children: [
-          ListTile(
-            title: Text("내 정보"),
-            onTap: () {},
-          ),
-          Divider(), // 구분선을 추가하여 항목을 구분할 수 있습니다.
-          ListTile(
-            title: Text("알림 설정"),
-            onTap: () {},
-          ),
-          Divider(),
-          ListTile(
-            title: Text(
-              "로그아웃",
-              style: TextStyle(
-                color: Colors.red, // 텍스트 색상을 빨간색으로 설정
-              ),
-            ),
-            onTap: () {
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: Text("설정"),
+    ),
+    body: ListView(
+      children: [
+ListTile(
+  title: Text("내 정보"),
+onTap: () {
+},
+),
+Divider(), // 구분선을 추가하여 항목을 구분할 수 있습니다.
+ListTile(
+  title: Text("알림 설정"),
+onTap: () {
+},
+),
+Divider(),
+ListTile(
+title: Text(
+"로그아웃",
+style: TextStyle(
+color: Colors.red, // 텍스트 색상을 빨간색으로 설정
+),
+),
+onTap: () {
 // 로그아웃 로직을 여기에 추가하세요.
-            },
-          )
+},
+)
 // 여기에 다른 설정 항목들을 추가할 수 있습니다.
-        ],
-      ),
-    );
-  }
+],
+),
+);
+}
 }
 
 class NavigationScreen extends StatelessWidget {
