@@ -1,4 +1,0 @@
-#Thu Sep 07 16:39:51 KST 2023
-base.0=C\:\\Users\\kkm50\\StudioProjects\\mapMarking\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
