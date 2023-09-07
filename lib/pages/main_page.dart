@@ -244,6 +244,11 @@ class _map_widgetState extends State<map_widget> {
         'latitude': 37.533100,
         'longitude': 127.025112,
       },
+      {
+        'name': 'Place 7',
+        'latitude': 38.533100,
+        'longitude': 127.025112,
+      },
     ];
     return CupertinoPageScaffold(
       child: Stack(
@@ -265,7 +270,7 @@ class _map_widgetState extends State<map_widget> {
             onMapCreated: (controller) => _controller = controller,
           ),
           Positioned(
-            bottom: 16,
+            top: 16,
             right: 16,
             child: FloatingActionButton(
               onPressed: _getCurrentLocation,
