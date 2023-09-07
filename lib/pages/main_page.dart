@@ -366,7 +366,7 @@ onTap: () {
 Divider(),
 ListTile(
 title: Text(
-"로그아웃",
+"Log Out",
 style: TextStyle(
 color: Colors.red, // 텍스트 색상을 빨간색으로 설정
 ),
