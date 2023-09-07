@@ -68,11 +68,11 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         children: [
           map_widget(),
-          PublicTransportScreen(),
-          NavigationScreen(),
-          NearbyScreen(),
-          BookmarksScreen(),
-          MyLogScreen(),
+          // PublicTransportScreen(),
+          // NavigationScreen(),
+          // NearbyScreen(),
+          // BookmarksScreen(),
+          // MyLogScreen(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -94,24 +94,8 @@ class _MyHomePageState extends State<MyHomePage> {
             label: "홈",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.directions_bus),
-            label: "대중교통",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.directions_car),
-            label: "내비게이션",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.location_on),
-            label: "주변",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark),
-            label: "즐겨찾기",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.more_time_outlined),
-            label: "마이로그",
+            icon: Icon(Icons.settings),
+            label: "설정",
           ),
         ],
         selectedItemColor: Colors.greenAccent,
