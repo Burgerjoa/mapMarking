@@ -215,9 +215,9 @@ class _map_widgetState extends State<map_widget> {
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> places = [
       {
-        'name': 'Place 1',
-        'latitude': 37.532600,
-        'longitude': 127.024612,
+        'name': '',
+        'latitude': 37.6259014,
+        'longitude': 127.0269987,
       },
       {
         'name': 'Place 2',
@@ -260,12 +260,6 @@ class _map_widgetState extends State<map_widget> {
                 markerId: MarkerId(place['name']),
                 position: LatLng(place['latitude'], place['longitude']),
                 infoWindow: InfoWindow(title: place['name']),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                          builder: (context) => MarkerDetailScreen()));
-                },
               );
             })),
             onMapCreated: (controller) => _controller = controller,
@@ -284,59 +278,7 @@ class _map_widgetState extends State<map_widget> {
               ),
             ),
           ),
-          Positioned(
-            top: 54,
-            child: CupertinoButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => MarkerDetailScreen()));
-              },
-              child: Container(
-                width: MediaQuery.of(context).size.width - 21,
-                height: 44,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 16.0),
-                      child: Text(
-                        '위치 검색',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                    const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 13.0),
-                    ),
-                  ],
-                ),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(8))),
-              ),
-            ),
-          ),
         ],
-      ),
-    );
-  }
-}
-
-class MarkerDetailScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Marker Detail'),
-      ),
-      body: Center(
-        child: Text('Marker detail screen'),
       ),
     );
   }
