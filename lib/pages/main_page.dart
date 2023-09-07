@@ -37,13 +37,30 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "MILESTONE beta",
-          style: TextStyle(color: Colors.black),
+      appBar:
+      AppBar(
+        title: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: "MILESTONE ",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: "YourNormalFont", // 일반 글꼴 이름으로 변경해야 합니다.
+                ),
+              ),
+              TextSpan(
+                text: "beta",
+                style: TextStyle(
+                  color: Colors.yellow,
+                  fontFamily: "YourHandwritingFont", // 필기체 글꼴 이름으로 변경해야 합니다.
+                ),
+              ),
+            ],
+          ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.greenAccent,
+        backgroundColor: Colors.indigo,
         elevation: 10,
         // leading: IconButton(
         //   icon: Icon(Icons.settings), // 설정 아이콘
