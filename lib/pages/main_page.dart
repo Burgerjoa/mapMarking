@@ -45,16 +45,16 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         backgroundColor: Colors.greenAccent,
         elevation: 10,
-        leading: IconButton(
-          icon: Icon(Icons.settings), // 설정 아이콘
-          onPressed: () {
-            // 설정 버튼을 눌렀을 때 이동할 화면을 여기에 추가
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SettingScreen()),
-            );
-          },
-        ),
+        // leading: IconButton(
+        //   icon: Icon(Icons.settings), // 설정 아이콘
+        //   onPressed: () {
+        //     // 설정 버튼을 눌렀을 때 이동할 화면을 여기에 추가
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(builder: (context) => SettingScreen()),
+        //     );
+        //   },
+        // ),
         actions: [
           IconButton(
             icon: Icon(Icons.search),
@@ -69,13 +69,29 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             ListTile(
-              title: Text('설정 1'),
+              leading: Icon(Icons.home),
+              title: Text('Home'),
               onTap: () {
                 // 설정 1을 선택했을 때의 동작을 추가하세요.
               },
             ),
             ListTile(
-              title: Text('설정 2'),
+              leading: Icon(Icons.bookmark),
+              title: Text("My"),
+              onTap: () {
+                // 설정 2를 선택했을 때의 동작을 추가하세요.
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text("Settings"),
+              onTap: () {
+                // 설정 2를 선택했을 때의 동작을 추가하세요.
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.person),
+              title: Text("Log Out"),
               onTap: () {
                 // 설정 2를 선택했을 때의 동작을 추가하세요.
               },
@@ -94,7 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         children: [
           map_widget(),
-          SettingScreen(),
+          // SettingScreen(),
           // PublicTransportScreen(),
           // NavigationScreen(),
           // NearbyScreen(),
@@ -102,31 +118,31 @@ class _MyHomePageState extends State<MyHomePage> {
           // MyLogScreen(),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-            _pageController.animateToPage(
-              index,
-              duration: Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
-            );
-          });
-        },
-        items: const <BottomNavigationBarItem>[
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.home),
-          //   label: "홈",
-          // ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: "설정",
-          ),
-        ],
-        selectedItemColor: Colors.greenAccent,
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   type: BottomNavigationBarType.fixed,
+      //   currentIndex: _currentIndex,
+      //   onTap: (index) {
+      //     setState(() {
+      //       _currentIndex = index;
+      //       _pageController.animateToPage(
+      //         index,
+      //         duration: Duration(milliseconds: 300),
+      //         curve: Curves.easeInOut,
+      //       );
+      //     });
+      //   },
+      //   items: const <BottomNavigationBarItem>[
+      //     // BottomNavigationBarItem(
+      //     //   icon: Icon(Icons.home),
+      //     //   label: "홈",
+      //     // ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.settings),
+      //       label: "설정",
+      //     ),
+      //   ],
+      //   selectedItemColor: Colors.greenAccent,
+      // ),
       // floatingActionButton: FloatingActionButton(
       //   onPressed: () {
       //     showDialog(
@@ -343,44 +359,44 @@ class PublicTransportScreen extends StatelessWidget {
     );
   }
 }
-class SettingScreen extends StatelessWidget {
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: Text("설정"),
-    ),
-    body: ListView(
-      children: [
-ListTile(
-  title: Text("내 정보"),
-onTap: () {
-},
-),
-Divider(), // 구분선을 추가하여 항목을 구분할 수 있습니다.
-ListTile(
-  title: Text("알림 설정"),
-onTap: () {
-},
-),
-Divider(),
-ListTile(
-title: Text(
-"Log Out",
-style: TextStyle(
-color: Colors.red, // 텍스트 색상을 빨간색으로 설정
-),
-),
-onTap: () {
-// 로그아웃 로직을 여기에 추가하세요.
-},
-)
-// 여기에 다른 설정 항목들을 추가할 수 있습니다.
-],
-),
-);
-}
-}
+// class SettingScreen extends StatelessWidget {
+// @override
+// Widget build(BuildContext context) {
+//   return Scaffold(
+//     appBar: AppBar(
+//       title: Text("설정"),
+//     ),
+//     body: ListView(
+//       children: [
+// ListTile(
+//   title: Text("내 정보"),
+// onTap: () {
+// },
+// ),
+// Divider(), // 구분선을 추가하여 항목을 구분할 수 있습니다.
+// ListTile(
+//   title: Text("알림 설정"),
+// onTap: () {
+// },
+// ),
+// Divider(),
+// ListTile(
+// title: Text(
+// "Log Out",
+// style: TextStyle(
+// color: Colors.red, // 텍스트 색상을 빨간색으로 설정
+// ),
+// ),
+// onTap: () {
+// // 로그아웃 로직을 여기에 추가하세요.
+// },
+// )
+// // 여기에 다른 설정 항목들을 추가할 수 있습니다.
+// ],
+// ),
+// );
+// }
+// }
 
 class NavigationScreen extends StatelessWidget {
   @override
