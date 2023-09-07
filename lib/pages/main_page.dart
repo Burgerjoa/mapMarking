@@ -333,11 +333,22 @@ onTap: () {
 ),
 Divider(), // 구분선을 추가하여 항목을 구분할 수 있습니다.
 ListTile(
-title: Text("알림 설정"),
+  title: Text("알림 설정"),
 onTap: () {
 },
 ),
 Divider(),
+ListTile(
+title: Text(
+"로그아웃",
+style: TextStyle(
+color: Colors.red, // 텍스트 색상을 빨간색으로 설정
+),
+),
+onTap: () {
+// 로그아웃 로직을 여기에 추가하세요.
+},
+)
 // 여기에 다른 설정 항목들을 추가할 수 있습니다.
 ],
 ),
