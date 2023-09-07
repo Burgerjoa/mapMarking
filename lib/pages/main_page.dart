@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:csv/csv.dart';
 
 void main() {
   runApp(const MainPage());
@@ -178,10 +180,13 @@ class _map_widgetState extends State<map_widget> {
   late GoogleMapController _controller;
   bool _myLocationEnabled = false;
 
+  List<Map<String, dynamic>> places = [];
+
   @override
   void initState() {
     super.initState();
-    _getCurrentLocation(); // initState에서 _getCurrentLocation를 호출하여 초기 실행합니다.
+    _getCurrentLocation();
+    _loadCsvData();
   }
 
   @override
@@ -190,23 +195,51 @@ class _map_widgetState extends State<map_widget> {
     super.dispose();
   }
 
+  Future<void> _loadCsvData() async {
+    final String csvData =
+        await rootBundle.loadString('assets/서울특별시_강북구_보안등정보_20220907.csv');
+    final List<List<dynamic>> csvTable = CsvToListConverter().convert(csvData);
+
+    final List<String> headers =
+        csvTable[0].map((value) => value.toString()).toList();
+    final String latitudeColumnName = '위도'; // 'E' 열은 위도
+    final String longitudeColumnName = '경도'; // 'F' 열은 경도
+    final int latitudeIndex = headers.indexOf(latitudeColumnName);
+    final int longitudeIndex = headers.indexOf(longitudeColumnName);
+
+    for (var row in csvTable.skip(1)) {
+      if (row.length > latitudeIndex && row.length > longitudeIndex) {
+        final String latitudeStr = row[latitudeIndex].toString();
+        final String longitudeStr = row[longitudeIndex].toString();
+
+        final double? latitude = double.tryParse(latitudeStr);
+        final double? longitude = double.tryParse(longitudeStr);
+
+        if (latitude != null && longitude != null) {
+          setState(() {
+            places.add({
+              'latitude': latitude,
+              'longitude': longitude,
+            });
+          });
+        }
+      }
+    }
+  }
+
   Future<void> _getCurrentLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
 
-    // 위치 서비스가 활성화되어 있는지 확인
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      // 위치 서비스가 비활성화된 경우, 사용자에게 위치 서비스를 활성화하라는 메시지를 보여줄 수 있음
       return;
     }
 
-    // 위치 권한 요청
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        // 위치 권한이 거부된 경우, 사용자에게 위치 권한을 부여하라는 메시지를 보여줄 수 있음
         return;
       }
     }
@@ -223,44 +256,6 @@ class _map_widgetState extends State<map_widget> {
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> places = [
-      {
-        'name': '',
-        'latitude': 37.6259014,
-        'longitude': 127.0269987,
-      },
-      {
-        'name': 'Place 2',
-        'latitude': 37.532700,
-        'longitude': 127.024712,
-      },
-      {
-        'name': 'Place 3',
-        'latitude': 37.532800,
-        'longitude': 127.024812,
-      },
-      {
-        'name': 'Place 4',
-        'latitude': 37.532900,
-        'longitude': 127.024912,
-      },
-      {
-        'name': 'Place 5',
-        'latitude': 37.533000,
-        'longitude': 127.025012,
-      },
-      {
-        'name': 'Place 6',
-        'latitude': 37.533100,
-        'longitude': 127.025112,
-      },
-      {
-        'name': 'Place 7',
-        'latitude': 38.533100,
-        'longitude': 127.025112,
-      },
-    ];
-
     return CupertinoPageScaffold(
       child: Stack(
         children: [
@@ -273,28 +268,29 @@ class _map_widgetState extends State<map_widget> {
             myLocationButtonEnabled: false,
             markers: Set<Marker>.of(places.map((place) {
               return Marker(
-                markerId: MarkerId(place['name']),
+                markerId:
+                    MarkerId(place.toString()), // MarkerId를 고유하게 만들어야 합니다.
                 position: LatLng(place['latitude'], place['longitude']),
-                infoWindow: InfoWindow(title: place['name']),
+                infoWindow: InfoWindow(
+                    title: place.toString()), // InfoWindow에 적절한 정보를 표시해야 합니다.
               );
             })),
             onMapCreated: (controller) {
-              _controller = controller; // _controller를 설정합니다.
-              // 여기에서 현재 카메라 위치를 업데이트하거나 다른 작업을 수행할 수 있습니다.
+              _controller = controller;
             },
-            zoomControlsEnabled: false,
+            zoomControlsEnabled: true,
           ),
           Positioned(
-            bottom: 16,
-            right: 16,
+            top: 16,
+            left: 16,
             child: FloatingActionButton(
               onPressed: _getCurrentLocation,
               foregroundColor: Colors.black,
               backgroundColor: Colors.white,
-              elevation: 8, // 그림자 크기
+              elevation: 8,
               child: Icon(Icons.my_location),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10), // 버튼 모서리 둥글기
+                borderRadius: BorderRadius.circular(10),
               ),
             ),
           ),
