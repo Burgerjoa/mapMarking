@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
       AppBar(
         title: RichText(
           text: TextSpan(
-            children: [
+            children: <TextSpan> [
               TextSpan(
                 text: "MILESTONE ",
                 style: TextStyle(
@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 text: "beta",
                 style: TextStyle(
                   color: Colors.yellow,
-                  fontFamily: "YourHandwritingFont", // 필기체 글꼴 이름으로 변경해야 합니다.
+                  fontStyle: FontStyle.italic, // 필기체 글꼴 이름으로 변경해야 합니다.
                 ),
               ),
             ],
@@ -117,70 +117,50 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: PageView(
-        physics: NeverScrollableScrollPhysics(),
-        controller: _pageController,
-        onPageChanged: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
+      body:Stack(
         children: [
-          map_widget(),
-          // SettingScreen(),
-          // PublicTransportScreen(),
-          // NavigationScreen(),
-          // NearbyScreen(),
-          // BookmarksScreen(),
-          // MyLogScreen(),
+          PageView(
+            physics: NeverScrollableScrollPhysics(),
+            controller: _pageController,
+            onPageChanged: (index){
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            children: [
+              map_widget(),
+            ],
+          ),
+          Positioned(
+            bottom: 16,
+            left: 16,
+            child: Container(
+              width: 100,
+              height: 65,
+              color: Colors.white.withOpacity(0.4),
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.light,
+                      color: Colors.white,
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      ": 12",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      )
+                    )
+                  ],
+                )
+              ),
+            ),
+          )
         ],
-      ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   type: BottomNavigationBarType.fixed,
-      //   currentIndex: _currentIndex,
-      //   onTap: (index) {
-      //     setState(() {
-      //       _currentIndex = index;
-      //       _pageController.animateToPage(
-      //         index,
-      //         duration: Duration(milliseconds: 300),
-      //         curve: Curves.easeInOut,
-      //       );
-      //     });
-      //   },
-      //   items: const <BottomNavigationBarItem>[
-      //     // BottomNavigationBarItem(
-      //     //   icon: Icon(Icons.home),
-      //     //   label: "홈",
-      //     // ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.settings),
-      //       label: "설정",
-      //     ),
-      //   ],
-      //   selectedItemColor: Colors.greenAccent,
-      // ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     showDialog(
-      //         context: context,
-      //         builder: (context) {
-      //           return AlertDialog(
-      //             title: Text("내 위치"),
-      //             content: Text("현재 위치"),
-      //             actions: [
-      //               TextButton(
-      //                 onPressed: () {
-      //                   Navigator.pop(context);
-      //                 },
-      //                 child: Text("닫기"),
-      //               )
-      //             ],
-      //           );
-      //         });
-      //   },
-      //   child: Icon(Icons.my_location),
-      // ),
+      )
     );
   }
 }
@@ -335,7 +315,7 @@ class _map_widgetState extends State<map_widget> {
             onMapCreated: (controller) => _controller = controller,
           ),
           Positioned(
-            top: 16,
+            bottom: 16,
             right: 16,
             child: FloatingActionButton(
               onPressed: _getCurrentLocation,
@@ -376,44 +356,6 @@ class PublicTransportScreen extends StatelessWidget {
     );
   }
 }
-// class SettingScreen extends StatelessWidget {
-// @override
-// Widget build(BuildContext context) {
-//   return Scaffold(
-//     appBar: AppBar(
-//       title: Text("설정"),
-//     ),
-//     body: ListView(
-//       children: [
-// ListTile(
-//   title: Text("내 정보"),
-// onTap: () {
-// },
-// ),
-// Divider(), // 구분선을 추가하여 항목을 구분할 수 있습니다.
-// ListTile(
-//   title: Text("알림 설정"),
-// onTap: () {
-// },
-// ),
-// Divider(),
-// ListTile(
-// title: Text(
-// "Log Out",
-// style: TextStyle(
-// color: Colors.red, // 텍스트 색상을 빨간색으로 설정
-// ),
-// ),
-// onTap: () {
-// // 로그아웃 로직을 여기에 추가하세요.
-// },
-// )
-// // 여기에 다른 설정 항목들을 추가할 수 있습니다.
-// ],
-// ),
-// );
-// }
-// }
 
 class NavigationScreen extends StatelessWidget {
   @override
@@ -470,3 +412,4 @@ class MyLogScreen extends StatelessWidget {
     );
   }
 }
+
