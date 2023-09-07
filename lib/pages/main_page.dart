@@ -271,9 +271,10 @@ class _map_widgetState extends State<map_widget> {
               );
             })),
             onMapCreated: (controller) => _controller = controller,
+            zoomControlsEnabled: false,
           ),
           Positioned(
-            top: 16,
+            bottom: 16,
             right: 16,
             child: FloatingActionButton(
               onPressed: _getCurrentLocation,

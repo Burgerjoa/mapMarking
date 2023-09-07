@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 application
-INJECTED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:4:5-36:19
+INJECTED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:5:5-37:19
 MERGED from [:geolocator_android] C:\Users\sw020\Desktop\mapMarking\build\geolocator_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-15:19
 MERGED from [:geolocator_android] C:\Users\sw020\Desktop\mapMarking\build\geolocator_android\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-15:19
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\sw020\.gradle\caches\transforms-3\25cee5f028ac2a6b79fd6278ff5b59e2\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:24:5-31:19
@@ -24,11 +24,11 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\sw
 	android:name
 		INJECTED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml
 manifest
-ADDED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:1:1-37:12
-INJECTED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:1:1-37:12
-INJECTED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:1:1-37:12
-INJECTED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:1:1-37:12
-MERGED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:1:1-37:12
+ADDED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:1:1-38:12
+INJECTED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:1:1-38:12
+INJECTED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:1:1-38:12
+INJECTED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:1:1-38:12
+MERGED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:1:1-38:12
 MERGED from [:google_maps_flutter_android] C:\Users\sw020\Desktop\mapMarking\build\google_maps_flutter_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:flutter_plugin_android_lifecycle] C:\Users\sw020\Desktop\mapMarking\build\flutter_plugin_android_lifecycle\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:geolocator_android] C:\Users\sw020\Desktop\mapMarking\build\geolocator_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-17:12
@@ -59,15 +59,15 @@ INJECTED from C:\Users\sw020\Desktop\mapMarking\android\app\src\debug\AndroidMan
 INJECTED from C:\Users\sw020\Desktop\mapMarking\android\app\src\debug\AndroidManifest.xml:1:1-7:12
 	package
 		INJECTED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:1:1-37:12
+		ADDED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:1:1-38:12
 		INJECTED from C:\Users\sw020\Desktop\mapMarking\android\app\src\debug\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:1:1-37:12
+		ADDED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:1:1-38:12
 		INJECTED from C:\Users\sw020\Desktop\mapMarking\android\app\src\debug\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:1:1-37:12
+		ADDED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:1:1-38:12
 		INJECTED from C:\Users\sw020\Desktop\mapMarking\android\app\src\debug\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:1:11-69
@@ -75,10 +75,14 @@ uses-permission#android.permission.ACCESS_FINE_LOCATION
 ADDED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:2:5-79
 	android:name
 		ADDED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:2:22-76
-uses-permission#android.permission.ACCESS_BACKGROUND_LOCATION
-ADDED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:3:5-85
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:3:5-81
 	android:name
-		ADDED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:3:22-82
+		ADDED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:3:22-78
+uses-permission#android.permission.ACCESS_BACKGROUND_LOCATION
+ADDED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:4:5-85
+	android:name
+		ADDED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml:4:22-82
 uses-sdk
 INJECTED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\sw020\Desktop\mapMarking\android\app\src\main\AndroidManifest.xml
