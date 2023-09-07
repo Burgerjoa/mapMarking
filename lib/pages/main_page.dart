@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      endDrawer: Drawer( // endDrawer를 사용하여 측면에서 설정 창 표시
+      drawer: Drawer( // endDrawer를 사용하여 측면에서 설정 창 표시
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
