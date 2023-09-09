@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/cupertino.dart';
-import 'csv.dart';
 
 void main() {
   runApp(const MainPage());
@@ -38,109 +37,109 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: RichText(
-            text: TextSpan(
-              children: <TextSpan>[
-                TextSpan(
-                  text: "MILESTONE ",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: "YourNormalFont", // 일반 글꼴 이름으로 변경해야 합니다.
-                  ),
+      appBar:
+      AppBar(
+        title: RichText(
+          text: TextSpan(
+            children: <TextSpan> [
+              TextSpan(
+                text: "MILESTONE ",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: "YourNormalFont", // 일반 글꼴 이름으로 변경해야 합니다.
                 ),
-                TextSpan(
-                  text: "beta",
-                  style: TextStyle(
-                    color: Colors.yellow,
-                    fontStyle: FontStyle.italic, // 필기체 글꼴 이름으로 변경해야 합니다.
-                  ),
+              ),
+              TextSpan(
+                text: "beta",
+                style: TextStyle(
+                  color: Colors.yellow,
+                  fontStyle: FontStyle.italic, // 필기체 글꼴 이름으로 변경해야 합니다.
                 ),
-              ],
-            ),
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.indigo,
-          elevation: 10,
-          // leading: IconButton(
-          //   icon: Icon(Icons.settings), // 설정 아이콘
-          //   onPressed: () {
-          //     // 설정 버튼을 눌렀을 때 이동할 화면을 여기에 추가
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(builder: (context) => SettingScreen()),
-          //     );
-          //   },
-          // ),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                showSearch(context: context, delegate: CustomSearchDelegate());
-              },
-            ),
-          ],
-        ),
-        drawer: Drawer(
-          // endDrawer를 사용하여 측면에서 설정 창 표시
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              ListTile(
-                leading: Icon(Icons.home),
-                title: Text('Home'),
-                onTap: () {
-                  // 설정 1을 선택했을 때의 동작을 추가하세요.
-                },
               ),
-              ListTile(
-                leading: Icon(Icons.bookmark),
-                title: Text("My"),
-                onTap: () {
-                  // 설정 2를 선택했을 때의 동작을 추가하세요.
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.settings),
-                title: Text("Settings"),
-                onTap: () {
-                  // 설정 2를 선택했을 때의 동작을 추가하세요.
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.person),
-                title: Text("Log Out"),
-                onTap: () {
-                  // 설정 2를 선택했을 때의 동작을 추가하세요.
-                },
-              ),
-              // 추가적인 설정 항목을 여기에 추가하세요.
             ],
           ),
         ),
-        body: Stack(
-          children: [
-            PageView(
-              physics: NeverScrollableScrollPhysics(),
-              controller: _pageController,
-              onPageChanged: (index) {
-                setState(() {
-                  _currentIndex = index;
-                });
+        centerTitle: true,
+        backgroundColor: Colors.indigo,
+        elevation: 10,
+        // leading: IconButton(
+        //   icon: Icon(Icons.settings), // 설정 아이콘
+        //   onPressed: () {
+        //     // 설정 버튼을 눌렀을 때 이동할 화면을 여기에 추가
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(builder: (context) => SettingScreen()),
+        //     );
+        //   },
+        // ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              showSearch(context: context, delegate: CustomSearchDelegate());
+            },
+          ),
+        ],
+      ),
+      drawer: Drawer( // endDrawer를 사용하여 측면에서 설정 창 표시
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text('Home'),
+              onTap: () {
+                // 설정 1을 선택했을 때의 동작을 추가하세요.
               },
-              children: [
-                map_widget(),
-              ],
             ),
-            Positioned(
-              bottom: 16,
-              left: 16,
-              child: Container(
-                width: 100,
-                height: 65,
-                color: Colors.white.withOpacity(0.4),
-                child: Center(
-                    child: Row(
+            ListTile(
+              leading: Icon(Icons.bookmark),
+              title: Text("My"),
+              onTap: () {
+                // 설정 2를 선택했을 때의 동작을 추가하세요.
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text("Settings"),
+              onTap: () {
+                // 설정 2를 선택했을 때의 동작을 추가하세요.
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.person),
+              title: Text("Log Out"),
+              onTap: () {
+                // 설정 2를 선택했을 때의 동작을 추가하세요.
+              },
+            ),
+            // 추가적인 설정 항목을 여기에 추가하세요.
+          ],
+        ),
+      ),
+      body:Stack(
+        children: [
+          PageView(
+            physics: NeverScrollableScrollPhysics(),
+            controller: _pageController,
+            onPageChanged: (index){
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            children: [
+              map_widget(),
+            ],
+          ),
+          Positioned(
+            bottom: 16,
+            left: 16,
+            child: Container(
+              width: 100,
+              height: 65,
+              color: Colors.white.withOpacity(0.4),
+              child: Center(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
@@ -148,19 +147,25 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Colors.white,
                     ),
                     SizedBox(height: 4),
-                    Text(": 12",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ))
+                    Text(
+                      ": 12",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      )
+                    )
                   ],
-                )),
+                )
               ),
-            )
-          ],
-        ));
+            ),
+          )
+        ],
+      )
+    );
   }
 }
+
+
 
 class CustomSearchDelegate extends SearchDelegate {
   @override
@@ -253,7 +258,43 @@ class _map_widgetState extends State<map_widget> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> places = getPlaces();
+    List<Map<String, dynamic>> places = [
+      {
+        'name': '',
+        'latitude': 37.6259014,
+        'longitude': 127.0269987,
+      },
+      {
+        'name': 'Place 2',
+        'latitude': 37.532700,
+        'longitude': 127.024712,
+      },
+      {
+        'name': 'Place 3',
+        'latitude': 37.532800,
+        'longitude': 127.024812,
+      },
+      {
+        'name': 'Place 4',
+        'latitude': 37.532900,
+        'longitude': 127.024912,
+      },
+      {
+        'name': 'Place 5',
+        'latitude': 37.533000,
+        'longitude': 127.025012,
+      },
+      {
+        'name': 'Place 6',
+        'latitude': 37.533100,
+        'longitude': 127.025112,
+      },
+      {
+        'name': 'Place 7',
+        'latitude': 38.533100,
+        'longitude': 127.025112,
+      },
+    ];
     return CupertinoPageScaffold(
       child: Stack(
         children: [
@@ -371,3 +412,4 @@ class MyLogScreen extends StatelessWidget {
     );
   }
 }
+

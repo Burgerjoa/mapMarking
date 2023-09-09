@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:csv/csv.dart';
 
 File readCSV() {
-  var csvFile = File('assets/csvjson.json');
+  var csvFile = File('assets/abc.csv');
   var csvString = csvFile.readAsString();
   var csvData = CsvToListConverter();
   return csvFile;
